@@ -42,7 +42,19 @@
 
 <button></button>
 <script>
+  const divs = document.querySelectorAll('div') //creates a const of all elements of the 'div' type
 
+  function logText(e) {
+    console.log(this.classList.value);
+    e.stopPropagation(); //stops capturing after it logs, so it only logs whatever the value you clicked on is.
+  }
+  // run LogText whenever a div is clicked on.
+  divs.forEach (div => div.addEventListener('click', logText, {
+  //  capture: false, //capture: true flag means it must start capturing fonly allows for each element to trigger an event listener once, false by default.rom the top div, in this case div 'one'.
+    once: true //set to false by default; once the element is captured, it is unbound, effectively making it impossible to trigger the same event listener again.
+  } 
+    
+    ));
 </script>
 </body>
 </html>
