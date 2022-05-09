@@ -58,7 +58,26 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
+        //function to play sound on keystroke:
+      function playSound(e) {
+      const audio = document.querySelector([`audio[data-key="${e.keyCode}"]`])
+      const key = document.querySelector([`.key[data-key="${e.keyCode}"]`])
+      if(!audio) return; //stop function from running all together
+      audio.currentTime=0; // reset audio to 0 all the time for repeated playing
+      audio.play();
+      key.classList.add('playing');
+    };
+    //function to remove highlight after keystroke was pressed:
+    function removeTransition(e) {
+      if (e.propertyName !== 'transform') return; // skip if it isn't a transform - i.e. don't log it.
+      this.classList.remove('playing');
 
+    }
+    //create a const variable that encompasses everything with the 'key' class
+    const keys = document.querySelectorAll(`.key`);
+    // for each key, wait until ransitionend event (i.e. transition ended), run the removeTransition function
+    keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+    window.addEventListener('keydown', playSound); //event listener for keystroke, run the playSound function when it's registered.
 </script>
 
 
